@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: configuration.demo
+---
+testFramework: spock
+sourceLanguage: groovy
