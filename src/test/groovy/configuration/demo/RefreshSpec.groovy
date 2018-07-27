@@ -1,7 +1,6 @@
 package configuration.demo
 
 import io.micronaut.context.ApplicationContext
-import io.micronaut.discovery.config.ConfigurationClient
 import io.micronaut.discovery.consul.client.v1.ConsulClient
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.client.RxHttpClient
@@ -16,9 +15,7 @@ class RefreshSpec extends Specification {
 
     @AutoCleanup
     @Shared
-    EmbeddedServer embeddedServer = ApplicationContext.run(EmbeddedServer,
-            ['endpoints.refresh.sensitive': false]
-    )
+    EmbeddedServer embeddedServer = ApplicationContext.run(EmbeddedServer)
 
     @Shared
     ConsulClient client = embeddedServer.applicationContext.getBean(ConsulClient)
@@ -50,7 +47,7 @@ class RefreshSpec extends Specification {
         conditions.eventually {
             assert embeddedServer.applicationContext.getBean(ValueAnnotation).val == "updated ${rand}".toString()
             assert embeddedServer.applicationContext.getBean(ConfigController).valueAnnotation.val == "updated ${rand}".toString()
-            assert rxClient.exchange("/", String).blockingFirst().body() == "updated ${rand}".toString()
+            assert rxClient.exchange("/value", String).blockingFirst().body().contains("updated ${rand}".toString())
         }
 
         cleanup:

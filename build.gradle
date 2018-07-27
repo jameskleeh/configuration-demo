@@ -21,12 +21,12 @@ apply plugin:"groovy"
 repositories {
     mavenLocal()
     mavenCentral()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    jcenter()
 }
 
 dependencyManagement {
     imports {
-        mavenBom 'io.micronaut:bom:1.0.0.BUILD-SNAPSHOT'
+        mavenBom 'io.micronaut:bom:1.0.0.M3'
     }
 }
 
@@ -48,6 +48,6 @@ shadowJar {
     mergeServiceFiles()
 }
 
-run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1')
+run.jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dmicronaut.environments=dev')
 
 mainClassName = "configuration.demo.Application"

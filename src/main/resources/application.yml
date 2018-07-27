@@ -1,6 +1,19 @@
-endpoints:
-    refresh:
-        sensitive: false
-micronaut:
-    server:
-        port: 8080
+# UrlConfiguration
+url:
+    host: localhost
+    port: 8080
+    username: admin
+    password: admin
+
+# UrlProperties
+services:
+    google:
+        host: google.com
+    micronaut:
+        host: micronaut.io
+
+# BuildingProperties
+building:
+    name: Burj Khalifa
+    city: Dubai
+    floors: 163
